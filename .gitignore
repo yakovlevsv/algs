@@ -1,0 +1,17 @@
+.classpath
+.project
+.settings
+.springBeans
+.layout
+target
+/.metadata
+/.recommenders
+/.sonarlint
+/RemoteSystemsTempFiles
+.idea
+*.iml
+*.bak
+*/**/*.jar
+bin
+*.class
+UnionFind/UnionFind.iml
