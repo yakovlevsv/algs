@@ -48,7 +48,6 @@ public class Percolation {
 	}
 
 	public static void main(String[] args) {
-		Percolation percolation = new Percolation(7);
 	}
 
 	private void initUnionOfTopLevelWithFakeSite(int n) {
