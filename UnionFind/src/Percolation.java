@@ -2,14 +2,14 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-	private int n;
+	private int number;
 	private boolean[] openness;
 	private final WeightedQuickUnionUF uf;
 	private final int lastIndex;
 	private int open;
 
 	public Percolation(int n) {
-		this.n = n;
+		this.number = n;
 		uf = new WeightedQuickUnionUF(n * n + 2);
 		openness = new boolean[n * n + 2];
 		lastIndex = openness.length - 1;
@@ -17,6 +17,7 @@ public class Percolation {
 	}
 
 	public void open(int row, int col) {
+		checkCorectness(row, col);
 		openItself(row, col);
 		openNeighbor(row, col, row - 1, col);
 		openNeighbor(row, col, row + 1, col);
@@ -25,11 +26,20 @@ public class Percolation {
 		open++;
 	}
 
+	private void checkCorectness(int row, int col) {
+		int i = row * col;
+		if (i < 1 || i > lastIndex) {
+			throw new IndexOutOfBoundsException("Index Out Of Bounds");
+		}
+	}
+
 	public boolean isOpen(int row, int col) {
+		checkCorectness(row, col);
 		return openness[getIndex(row, col)];
 	}
 
 	public boolean isFull(int row, int col) {
+		checkCorectness(row, col);
 		int index = getIndex(row, col);
 		return openness[index] && (uf.connected(0, index));
 	}
@@ -39,8 +49,8 @@ public class Percolation {
 	}
 
 	public boolean percolates() {
-		for (int i = lastIndex - 1; i > lastIndex - n - 1; i--) {
-			if (uf.connected(0, i)) {
+		for (int i = lastIndex - 1; i > lastIndex - number - 1; i--) {
+			if (open > 0 && uf.connected(0, i)) {
 				return true;
 			}
 		}
@@ -52,7 +62,7 @@ public class Percolation {
 
 	private void initUnionOfTopLevelWithFakeSite(int n) {
 		for (int i = 1; i <= n; i++) {
-			uf.union(0, i);
+			uf.union(i, 0);
 		}
 	}
 
@@ -68,10 +78,10 @@ public class Percolation {
 	}
 
 	private boolean isPossessedToPercolation(int pRow, int pCol) {
-		return pRow >= 1 && pCol >= 1 && pRow <= n && pCol <= n;
+		return pRow >= 1 && pCol >= 1 && pRow <= number && pCol <= number;
 	}
 
 	private int getIndex(int row, int col) {
-		return (row - 1) * n + col;
+		return (row - 1) * number + col;
 	}
 }

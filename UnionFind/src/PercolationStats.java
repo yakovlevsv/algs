@@ -1,4 +1,3 @@
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
@@ -8,13 +7,13 @@ import edu.princeton.cs.algs4.StdStats;
  */
 public class PercolationStats {
 
-	private final int n;
+	private final int number;
 	private final int trials;
 	private int currentExam;
 	private double[] results;
 
 	public PercolationStats(int n, int trials) {
-		this.n = n;
+		this.number = n;
 		this.trials = trials;
 		this.results = new double[trials];
 
@@ -24,15 +23,15 @@ public class PercolationStats {
 	}
 
 	private void doPercolationExperiment() {
-		Percolation percolation = new Percolation(n);
+		Percolation percolation = new Percolation(number);
 		do {
-			int row = StdRandom.uniform(n) + 1;
-			int col = StdRandom.uniform(n) + 1;
+			int row = StdRandom.uniform(number) + 1;
+			int col = StdRandom.uniform(number) + 1;
 			if (!percolation.isOpen(row, col)) {
 				percolation.open(row, col);
 			}
 		} while (!percolation.percolates());
-		results[currentExam++] = 1.0 * percolation.numberOfOpenSites() / (n * n);
+		results[currentExam++] = 1.0 * percolation.numberOfOpenSites() / (number * number);
 	}
 
 	public double mean() {
